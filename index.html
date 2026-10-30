@@ -6,106 +6,107 @@
 <title>Consciousness Atlas — theories of consciousness × AI</title>
 <meta name="description" content="A map of the theories of consciousness discussed in Schneider et al. (2025), 'Is AI Conscious?', arranged by view of reality and by verdict on AI consciousness.">
 <meta name="color-scheme" content="light dark">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#f6f4ee; --fg:#1d1c19; --muted:#6b6860; --card:#ffffff; --line:#e3dfd3; --accent:#2f5d50;
-    --v-no:#b6473a; --v-depends:#c78b2a; --v-yes:#2e7d58; --v-silent:#8a877f;
-    --col-phys:#e9eef7; --col-nonphys:#f3e9f6; --col-dual:#fbeae4; --col-neutral:#eef2ea;
-    --radius:14px; --sheet:#fff;
+    --bg:#fafafa; --fg:#0e0e0e; --muted:#6f6f6f; --faint:#a3a3a3; --card:#ffffff; --line:#e4e4e4; --line2:#cfcfcf; --accent:#0e0e0e;
+    --v-no:#c0392b; --v-depends:#b8860b; --v-yes:#1f7a4d; --v-silent:#9a9a9a;
+    --r:4px; --sheet:#fff;
+    --sans:"Inter Tight",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
   }
   @media (prefers-color-scheme: dark){
-    :root{
-      --bg:#141413; --fg:#ece9e1; --muted:#a09c92; --card:#1e1e1c; --line:#2d2c29; --accent:#8fc3b2;
-      --v-no:#e07a6c; --v-depends:#e2b25a; --v-yes:#6cc094; --v-silent:#8d8a82;
-      --col-phys:#1b2231; --col-nonphys:#261e2c; --col-dual:#2d211c; --col-neutral:#1e261d;
-      --sheet:#1e1e1c;
-    }
+    :root{ --bg:#0c0c0c; --fg:#f0f0f0; --muted:#8f8f8f; --faint:#5c5c5c; --card:#141414; --line:#232323; --line2:#333; --accent:#f0f0f0;
+      --v-no:#e3604f; --v-depends:#d9a441; --v-yes:#4fbf85; --v-silent:#6f6f6f; --sheet:#141414; }
   }
   *{box-sizing:border-box}
-  html,body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;-webkit-text-size-adjust:100%}
-  a{color:var(--accent)}
-  header{padding:calc(16px + env(safe-area-inset-top)) 16px 8px}
-  h1{font-size:1.45rem;line-height:1.2;margin:0 0 6px;letter-spacing:-.01em}
-  .sub{color:var(--muted);font-size:.9rem;margin:0}
-  .sub a{text-decoration:none;border-bottom:1px solid var(--line)}
-  nav.tabs{display:flex;gap:6px;padding:10px 16px;position:sticky;top:0;background:var(--bg);z-index:5;overflow-x:auto;scrollbar-width:none}
+  html,body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 var(--sans);-webkit-text-size-adjust:100%;font-feature-settings:"ss01","cv11"}
+  a{color:var(--fg)}
+  header{padding:calc(20px + env(safe-area-inset-top)) 18px 10px}
+  .kicker{font:500 .68rem/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:0 0 10px}
+  h1{font-size:2rem;line-height:1;margin:0 0 12px;font-weight:600;letter-spacing:-.035em}
+  .sub{color:var(--muted);font-size:.9rem;margin:0;max-width:60ch}
+  .sub a{text-decoration:none;border-bottom:1px solid var(--line2)}
+  nav.tabs{display:flex;gap:0;padding:0 18px;position:sticky;top:0;background:var(--bg);z-index:5;overflow-x:auto;scrollbar-width:none;border-bottom:1px solid var(--line);margin-top:8px}
   nav.tabs::-webkit-scrollbar{display:none}
-  .tab{flex:0 0 auto;border:1px solid var(--line);background:var(--card);color:var(--fg);border-radius:999px;padding:8px 14px;font-size:.9rem;cursor:pointer}
-  .tab[aria-selected="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
-  main{padding:4px 16px calc(40px + env(safe-area-inset-bottom))}
+  .tab{flex:0 0 auto;border:0;border-bottom:2px solid transparent;background:none;color:var(--muted);padding:12px 14px 10px;font:500 .85rem var(--sans);cursor:pointer;margin-bottom:-1px}
+  .tab[aria-selected="true"]{color:var(--fg);border-bottom-color:var(--fg)}
+  main{padding:14px 18px calc(48px + env(safe-area-inset-bottom))}
   section[hidden]{display:none}
 
-  /* legend */
-  .legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:.8rem;color:var(--muted);margin:6px 0 14px}
-  .legend span::before{content:"";display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;vertical-align:-1px;background:var(--c)}
-  .axis-note{font-size:.85rem;color:var(--muted);margin:0 0 12px}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;font:.72rem/1 var(--mono);color:var(--muted);margin:8px 0 18px;letter-spacing:.02em}
+  .legend span::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:7px;vertical-align:0;background:var(--c)}
+  .axis-note{font-size:.85rem;color:var(--muted);margin:0 0 10px;max-width:70ch}
+  .axis-note strong{color:var(--fg);font-weight:500}
 
-  /* map */
-  .map{display:flex;flex-direction:column;gap:18px}
-  .row{border-top:2px solid var(--vc);padding-top:8px}
-  .row h2{font-size:.95rem;margin:0 0 8px;color:var(--vc)}
-  .cells{display:grid;grid-template-columns:1fr;gap:8px}
-  .cell{background:var(--cc);border-radius:var(--radius);padding:10px 10px 6px;min-height:44px}
+  .map{display:flex;flex-direction:column;gap:22px}
+  .row{border-top:1px solid var(--fg);padding-top:10px}
+  .row h2{font:500 .72rem/1.3 var(--mono);letter-spacing:.08em;text-transform:uppercase;margin:0 0 10px;color:var(--fg);display:flex;gap:8px;align-items:center}
+  .row h2::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--vc);flex:0 0 auto}
+  .cells{display:grid;grid-template-columns:1fr;gap:10px}
+  .cell{border-left:1px solid var(--line2);padding:2px 0 2px 12px}
   .cell.empty{display:none}
-  .cell h3{font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:0 0 6px;font-weight:600}
+  .cell h3{font:500 .66rem/1 var(--mono);text-transform:uppercase;letter-spacing:.1em;color:var(--faint);margin:0 0 8px}
   .chips{display:flex;flex-wrap:wrap;gap:6px}
-  .chip{border:1px solid var(--line);background:var(--card);color:var(--fg);border-radius:10px;padding:7px 10px;font-size:.86rem;line-height:1.25;text-align:left;cursor:pointer;border-left:4px solid var(--vc);max-width:100%}
-  .chip:active{transform:scale(.98)}
+  .chip{border:1px solid var(--line2);background:var(--card);color:var(--fg);border-radius:var(--r);padding:7px 11px;font:500 .84rem/1.25 var(--sans);text-align:left;cursor:pointer;letter-spacing:-.005em;max-width:100%;transition:border-color .12s,background .12s}
+  .chip:hover{border-color:var(--fg)}
+  .chip:active{background:var(--line)}
   @media (min-width:760px){
-    .map{display:grid;grid-template-columns:110px repeat(4,1fr);gap:8px}
-    .colhead{font-size:.75rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:600;padding:0 6px 4px;align-self:end}
+    .map{display:grid;grid-template-columns:130px repeat(4,1fr);gap:0 14px;row-gap:0}
+    .colhead{font:500 .66rem/1.3 var(--mono);text-transform:uppercase;letter-spacing:.1em;color:var(--muted);padding:0 0 10px;align-self:end}
     .row{display:contents}
-    .row h2{font-size:.8rem;align-self:start;padding:10px 6px 0;border-top:2px solid var(--vc)}
+    .row h2{align-self:start;padding:14px 0 0;border-top:1px solid var(--fg);margin:0}
     .cells{display:contents}
-    .cell{min-height:90px;border-top:2px solid var(--vc)}
-    .cell.empty{display:block;background:transparent;border-top:2px solid var(--line)}
+    .cell{min-height:110px;border-left:0;border-top:1px solid var(--line);padding:14px 0 18px}
+    .cell.empty{display:block;background:repeating-linear-gradient(135deg,transparent 0 6px,var(--line) 6px 7px)}
     .cell h3{display:none}
   }
   .colheads{display:none}
   @media (min-width:760px){.colheads{display:contents}}
 
-  /* tree */
-  .tree ul{list-style:none;margin:0;padding-left:14px;border-left:1px solid var(--line)}
+  .tree ul{list-style:none;margin:0;padding-left:16px;border-left:1px solid var(--line2)}
   .tree>ul{padding-left:0;border:0}
-  .tree li{margin:6px 0}
-  .tree .node{font-weight:600;font-size:.95rem;padding:4px 0}
-  .tree .node small{display:block;font-weight:400;color:var(--muted);font-size:.82rem}
-  .tree .leaf{display:block;width:100%;text-align:left;background:var(--card);border:1px solid var(--line);border-left:4px solid var(--vc);border-radius:10px;padding:8px 10px;font-size:.9rem;color:var(--fg);cursor:pointer}
-  .tree .leaf small{color:var(--muted);display:block;font-size:.78rem}
+  .tree li{margin:8px 0}
+  .tree .node{font-weight:600;font-size:.95rem;padding:4px 0;letter-spacing:-.01em}
+  .tree .node small{display:block;font-weight:400;color:var(--muted);font-size:.82rem;max-width:60ch}
+  .tree .leaf{display:block;width:100%;text-align:left;background:var(--card);border:1px solid var(--line2);border-radius:var(--r);padding:8px 10px;font:500 .88rem var(--sans);color:var(--fg);cursor:pointer;position:relative;padding-left:22px}
+  .tree .leaf::before{content:"";position:absolute;left:9px;top:14px;width:6px;height:6px;border-radius:50%;background:var(--vc)}
+  .tree .leaf small{color:var(--muted);display:block;font:.7rem var(--mono);letter-spacing:.04em;margin-top:2px}
 
-  /* distinctions */
-  .cards{display:grid;grid-template-columns:1fr;gap:10px}
+  .cards{display:grid;grid-template-columns:1fr;gap:1px;background:var(--line);border:1px solid var(--line)}
   @media (min-width:760px){.cards{grid-template-columns:1fr 1fr}}
-  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:12px 14px}
-  .card h3{margin:0 0 4px;font-size:.98rem}
-  .card p{margin:0;font-size:.9rem;color:var(--fg)}
+  .card{background:var(--card);padding:16px 16px 18px}
+  .card h3{margin:0 0 6px;font-size:.98rem;font-weight:600;letter-spacing:-.01em}
+  .card p{margin:0;font-size:.88rem;color:var(--muted)}
 
-  /* about */
-  .about p{font-size:.92rem}
-  .about h2{font-size:1.05rem;margin:18px 0 6px}
+  .about p,.about li{font-size:.9rem;max-width:70ch}
+  .about h2{font-size:.72rem;font-family:var(--mono);font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:24px 0 6px}
 
-  /* sheet */
-  .scrim{position:fixed;inset:0;background:rgba(0,0,0,.45);opacity:0;pointer-events:none;transition:opacity .2s;z-index:20}
+  .scrim{position:fixed;inset:0;background:rgba(0,0,0,.5);opacity:0;pointer-events:none;transition:opacity .2s;z-index:20}
   .scrim.open{opacity:1;pointer-events:auto}
-  .sheet{position:fixed;left:0;right:0;bottom:0;background:var(--sheet);border-radius:18px 18px 0 0;max-height:88vh;overflow:auto;transform:translateY(100%);visibility:hidden;transition:transform .25s,visibility 0s .25s;z-index:21;padding:8px 18px calc(24px + env(safe-area-inset-bottom));box-shadow:0 -8px 30px rgba(0,0,0,.2)}
+  .sheet{position:fixed;left:0;right:0;bottom:0;background:var(--sheet);border-top:1px solid var(--line2);max-height:88vh;overflow:auto;transform:translateY(100%);visibility:hidden;transition:transform .25s,visibility 0s .25s;z-index:21;padding:14px 20px calc(28px + env(safe-area-inset-bottom))}
   .sheet.open{transform:none;visibility:visible;transition:transform .25s}
-  @media (min-width:760px){.sheet{left:50%;right:auto;width:620px;transform:translate(-50%,100%)}.sheet.open{transform:translate(-50%,0)}}
-  .handle{width:40px;height:4px;border-radius:2px;background:var(--line);margin:4px auto 12px}
-  .sheet h2{margin:0 0 6px;font-size:1.2rem;line-height:1.25}
-  .badges{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 12px}
-  .badge{font-size:.75rem;border-radius:999px;padding:3px 9px;border:1px solid var(--line);color:var(--muted)}
-  .badge.v{color:#fff;border-color:transparent;background:var(--vc)}
-  .sheet h3{font-size:.78rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:14px 0 4px}
+  @media (min-width:760px){.sheet{left:50%;right:auto;width:640px;border:1px solid var(--line2);border-bottom:0;transform:translate(-50%,100%)}.sheet.open{transform:translate(-50%,0)}}
+  .handle{width:36px;height:3px;background:var(--line2);margin:0 auto 16px}
+  .sheet h2{margin:0 0 10px;font-size:1.45rem;line-height:1.1;font-weight:600;letter-spacing:-.03em;padding-right:40px}
+  .badges{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 14px}
+  .badge{font:500 .68rem/1 var(--mono);letter-spacing:.05em;text-transform:uppercase;padding:6px 8px;border:1px solid var(--line2);color:var(--muted)}
+  .badge.v{color:var(--vc);border-color:var(--vc)}
+  .sheet h3{font:500 .66rem/1 var(--mono);text-transform:uppercase;letter-spacing:.1em;color:var(--faint);margin:18px 0 6px}
   .sheet p{margin:0;font-size:.93rem}
   .sheet ul{margin:0;padding-left:18px;font-size:.9rem}
-  .close{position:absolute;top:10px;right:12px;border:0;background:var(--line);color:var(--fg);width:32px;height:32px;border-radius:50%;font-size:18px;cursor:pointer}
-  .navbtns{display:flex;justify-content:space-between;gap:8px;margin-top:18px}
-  .navbtns button{flex:1;border:1px solid var(--line);background:var(--card);color:var(--fg);border-radius:10px;padding:9px;font-size:.85rem;cursor:pointer}
-  footer{padding:0 16px 32px;color:var(--muted);font-size:.78rem}
+  .close{position:absolute;top:12px;right:14px;border:1px solid var(--line2);background:var(--card);color:var(--fg);width:32px;height:32px;border-radius:50%;font-size:18px;line-height:1;cursor:pointer}
+  .navbtns{display:flex;gap:1px;margin-top:22px;border:1px solid var(--line2)}
+  .navbtns button{flex:1;border:0;background:var(--card);color:var(--fg);padding:11px;font:500 .8rem var(--sans);cursor:pointer}
+  .navbtns button:first-child{border-right:1px solid var(--line2)}
+  .navbtns button:hover{background:var(--line)}
+  footer{padding:0 18px 36px;color:var(--faint);font:.72rem/1.5 var(--mono)}
 </style>
 </head>
 <body>
 <header>
+  <p class="kicker">Theories of consciousness × AI</p>
   <h1>Consciousness Atlas</h1>
   <p class="sub">The theories of consciousness in Schneider, Sahner, Kuhn, Bailey &amp; Schwitzgebel (2025), <em>Is AI Conscious? A Primer on the Myths and Confusions Driving the Debate</em> (FAU white paper), mapped by what each says reality is made of and whether an AI could be conscious.</p>
 </header>
