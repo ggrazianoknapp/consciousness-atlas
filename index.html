@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Consciousness Atlas — theories of consciousness × AI</title>
+<title>Consciousness Atlas — theories of consciousness × AI, across six sources</title>
 <meta name="description" content="A map of the theories of consciousness discussed in Schneider et al. (2025), 'Is AI Conscious?', arranged by view of reality and by verdict on AI consciousness.">
 <meta name="color-scheme" content="light dark">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -67,6 +67,17 @@
   .colheads{display:none}
   @media (min-width:760px){.colheads{display:contents}}
 
+  .srcbar{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 12px}
+  .src{border:1px solid var(--line2);background:var(--card);color:var(--muted);padding:5px 9px;font:500 .66rem/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;cursor:pointer;border-radius:var(--r)}
+  .src[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+  .chip.dim{opacity:.28}
+  .chip .n{font:.62em var(--mono);color:var(--muted);margin-left:.5em;vertical-align:.1em}
+  .take{border-left:2px solid var(--line2);padding:4px 0 4px 12px;margin:0 0 12px}
+  .take h4{margin:0 0 3px;font:600 .68rem/1.2 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--fg)}
+  .take h4 small{font-weight:400;color:var(--muted);text-transform:none;letter-spacing:0;margin-left:6px}
+  .take p{font-size:.88rem}
+  .tags{display:inline-flex;gap:4px;margin:8px 0 0}
+  .tag{font:500 .6rem/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);border:1px solid var(--line2);padding:3px 6px}
   .tree ul{list-style:none;margin:0;padding-left:16px;border-left:1px solid var(--line2)}
   .tree>ul{padding-left:0;border:0}
   .tree li{margin:8px 0}
@@ -110,7 +121,7 @@
 <header>
   <p class="kicker">Theories of consciousness × AI</p>
   <h1>Consciousness Atlas</h1>
-  <p class="sub">Theories of consciousness in Schneider, Sahner, Kuhn, Bailey &amp; Schwitzgebel (2025), <em>Is AI Conscious?</em> — by view of reality × verdict on AI consciousness.</p>
+  <p class="sub">Theories of consciousness by view of reality × verdict on AI consciousness, drawn from six sources: the FAU primer, Saad &amp; Mogensen, Seth, Butlin et al., the CDM glossary and Schiavo.</p>
 </header>
 
 <nav class="tabs" role="tablist">
@@ -124,38 +135,40 @@
   <section id="view-map">
     <p class="axis-note"><strong>Rows:</strong> the theory's verdict on AI consciousness, as the paper reports it. <strong>Columns:</strong> the theory's view of reality. Tap a theory for details.</p>
     <div class="legend" id="legend"></div>
+    <div class="srcbar" id="srcbar"></div>
     <div class="map" id="map"></div>
   </section>
 
   <section id="view-tree" hidden>
-    <p class="axis-note">The paper's own ordering: a superordinate split between monism and dualism, with physicalist and non-physicalist monisms underneath. Mechanism-level theories appear elsewhere in the paper and are grouped separately here.</p>
+    <p class="axis-note">The FAU primer's ordering — monism vs dualism, physicalist vs non-physicalist — extended with the theories the other sources add. Mechanism-level theories and cross-cutting hypotheses are grouped separately.</p>
     <div class="tree" id="tree"></div>
   </section>
 
   <section id="view-distinctions" hidden>
-    <p class="axis-note">Section II of the paper: the conceptual distinctions whose conflation drives most confusion about AI consciousness.</p>
+    <p class="axis-note">The distinctions, methods and traps the sources use to keep the debate honest. Tags show which sources discuss each.</p>
     <div class="cards" id="distinctions"></div>
   </section>
 
   <section id="view-about" hidden class="about">
     <h2>What this is</h2>
-    <p>A reading aid. Every theory card paraphrases what the white paper says about that view and its implications for AI consciousness. Where the paper names a theory but does not say what it implies for AI, the card says so instead of filling the gap.</p>
+    <p>A reading aid across six texts on AI consciousness. Each theory card gives one neutral summary, then what each source says about the view and its implications for AI, in that source's own framing. Where a source names a theory but is silent on AI, the card says so instead of filling the gap. Nothing here is endorsed by the authors.</p>
     <h2>How the axes were chosen</h2>
-    <p>The paper organises theories by metaphysics (monism vs dualism, physicalist vs not) and, for each, reports a stance on AI consciousness — usually "in principle yes", "no", or "it depends on what our best science can do". Those two dimensions are the grid. The paper's headline observation is visible in it: most views are neutral; the firm "no" comes from biological naturalism and eliminativism, the firm optimism from computational functionalism.</p>
+    <p>Rows are the theory's own verdict on AI consciousness, as the sources report it — not any author's verdict. Columns are what the theory takes reality to be made of, following the FAU primer's monism/dualism tree, plus a column for mechanism-level theories and cross-cutting hypotheses (substrate independence, functionalism) that are silent on metaphysics. Saad &amp; Mogensen's point runs through the whole grid: what matters for AI is the <em>basis</em> of consciousness, not its nature, so dualist and physicalist views alike can land in "it depends".</p>
     <h2>Placement judgement calls</h2>
     <ul>
-      <li><strong>Informational theories</strong> sit under physicalist monism because the paper puts them there, though it notes information is treated as more fundamental than matter.</li>
-      <li><strong>Quantum theories</strong> can be physicalist or not; the paper files them as non-physicalist because the named versions lean on panpsychism.</li>
-      <li><strong>Mysterianism</strong> is placed in the physicalist column per the paper, with its own caveat that a mysterian could be agnostic.</li>
-      <li><strong>Mechanism-level theories</strong> (GWT, HOT, Local Recurrence, embodied/enactive, etc.) are not in the paper's Section III taxonomy; they come from Sections I–II and get their own column.</li>
+      <li><strong>Computational functionalism</strong> is "yes" because that is what the view implies; Seth's case that the view is false appears on its card, not as a different row.</li>
+      <li><strong>GWT, higher-order theories, AST</strong> are "yes" on Butlin et al.'s computational reading — conditional on computational functionalism. FAU's doubt about GWT in silicon is a doubt about that condition.</li>
+      <li><strong>IIT</strong> is split from the FAU primer's "informational theories" because Butlin et al. and Tononi himself treat it as denying consciousness to conventional digital computers.</li>
+      <li><strong>Predictive processing, RPT, embodied/agency views</strong> are "it depends" because the sources pull in opposite directions: Butlin et al. derive computational indicators from them; Seth reads them as evidence for biological naturalism.</li>
+      <li><strong>Substrate independence</strong> is a hypothesis about basis rather than a theory, so it sits in the cross-cutting column.</li>
     </ul>
-    <h2>Source</h2>
-    <p>Schneider, S., Sahner, D., Kuhn, R. L., Bailey, M., &amp; Schwitzgebel, E. (2025). <em>Is AI Conscious? A Primer on the Myths and Confusions Driving the Debate.</em> White Paper, Center for the Future of AI, Mind and Society, Florida Atlantic University. Version 1.0; invited for the special issue "Evaluating Artificial Consciousness", <em>Philosophy and the Mind Sciences</em>. The paper itself points to Kuhn (2024), <em>A Landscape of Consciousness</em>, which catalogues 300+ theories in ten categories, for the full terrain.</p>
-    <p>Built by Gigi Graziano Knapp. Source on <a href="https://github.com/ggrazianoknapp/consciousness-atlas">GitHub</a>.</p>
+    <h2>Sources</h2>
+    <ul id="srclist"></ul>
+    <p>Built by Gigi Graziano Knapp. Source on <a href="https://github.com/ggrazianoknapp/consciousness-atlas">GitHub</a>; corrections welcome as issues or pull requests against <code>data.js</code>.</p>
   </section>
 </main>
 
-<footer>Paraphrased from the white paper; not endorsed by its authors. Corrections welcome via GitHub issues.</footer>
+<footer>Paraphrased from six sources; not endorsed by their authors. Corrections welcome via GitHub issues.</footer>
 
 <div class="scrim" id="scrim"></div>
 <div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-title">
@@ -185,12 +198,24 @@
     for (const r of REALITY_ORDER){
       const items = THEORIES.filter(t=>t.verdict===v && t.reality===r);
       html += `<div class="cell ${items.length?'':'empty'}" style="--cc:${COLCLASS[r]}"><h3>${REALITY[r].label}</h3><div class="chips">` +
-        items.map(t=>`<button class="chip" data-id="${t.id}" style="--vc:${VERDICT[v].color}">${t.name}</button>`).join("") +
+        items.map(t=>`<button class="chip" data-id="${t.id}" data-src="${Object.keys(t.takes).join(' ')}" style="--vc:${VERDICT[v].color}">${t.name}<span class="n">${Object.keys(t.takes).length}</span></button>`).join("") +
         `</div></div>`;
     }
     html += `</div></div>`;
   }
   map.innerHTML = html;
+
+  // ---------- source filter ----------
+  let activeSrc = null;
+  const srcbar = $("#srcbar");
+  srcbar.innerHTML = `<button class="src" data-s="" aria-pressed="true">All sources</button>` +
+    SOURCE_ORDER.map(k=>`<button class="src" data-s="${k}" aria-pressed="false" title="${SOURCES[k].label}">${SOURCES[k].short}</button>`).join("");
+  srcbar.addEventListener("click", e=>{
+    const b = e.target.closest(".src"); if(!b) return;
+    activeSrc = b.dataset.s || null;
+    srcbar.querySelectorAll(".src").forEach(x=>x.setAttribute("aria-pressed", x===b));
+    document.querySelectorAll(".chip").forEach(c=>c.classList.toggle("dim", !!activeSrc && !c.dataset.src.split(" ").includes(activeSrc)));
+  });
 
   // ---------- tree ----------
   function leaf(t){ return `<li><button class="leaf" data-id="${t.id}" style="--vc:${VERDICT[t.verdict].color}">${t.name}<small>AI: ${VERDICT[t.verdict].short}</small></button></li>`; }
@@ -211,7 +236,8 @@
   </ul>`;
 
   // ---------- distinctions ----------
-  $("#distinctions").innerHTML = DISTINCTIONS.map(d=>`<article class="card"><h3>${d.title}</h3><p>${d.body}</p></article>`).join("");
+  $("#distinctions").innerHTML = DISTINCTIONS.map(d=>`<article class="card"><h3>${d.title}</h3><p>${d.body}</p><div class="tags">${d.src.map(k=>`<span class="tag">${SOURCES[k].short}</span>`).join("")}</div></article>`).join("");
+  $("#srclist").innerHTML = SOURCE_ORDER.map(k=>{const S=SOURCES[k]; return `<li><strong>${S.short}</strong> — ${S.label}, <em>${S.url?`<a href="${S.url}" rel="noopener" target="_blank">${S.title}</a>`:S.title}</em>. ${S.kind}</li>`;}).join("");
 
   // ---------- tabs ----------
   const tabs = [...document.querySelectorAll(".tab")];
@@ -246,14 +272,13 @@
       <div class="badges">
         <span class="badge v" style="--vc:${v.color}">AI: ${v.short}</span>
         <span class="badge">${r.short}</span>
-        ${BUILD[t.buildable]?`<span class="badge">${BUILD[t.buildable]}</span>`:""}
-        <span class="badge">Paper §${t.section}</span>
+        <span class="badge">${Object.keys(t.takes).length} source${Object.keys(t.takes).length>1?"s":""}</span>
       </div>
       <h3>The view</h3><p>${t.summary}</p>
-      <h3>What it says about AI consciousness</h3><p>${t.ai}</p>
-      ${t.notes?`<h3>Notes from the paper</h3><p>${t.notes}</p>`:""}
-      <h3>Named in the paper</h3><ul>${t.proponents.map(p=>`<li>${p}</li>`).join("")}</ul>
-      <h3>Where it sits</h3><p>${t.tree.join(" → ")} → ${t.name}</p>
+      <h3>What each source says, and what it implies for AI</h3>
+      ${SOURCE_ORDER.filter(k=>t.takes[k]).map(k=>`<div class="take"><h4>${SOURCES[k].short}<small>${SOURCES[k].label}</small></h4><p>${t.takes[k]}</p></div>`).join("")}
+      <h3>Named in the sources</h3><ul>${t.proponents.map(p=>`<li>${p}</li>`).join("")}</ul>
+      <h3>Where it sits</h3><p>${r.label} · ${v.label}</p>
       <div class="navbtns">
         <button data-nav="${order[(i-1+order.length)%order.length]}">‹ Previous</button>
         <button data-nav="${order[(i+1)%order.length]}">Next ›</button>
