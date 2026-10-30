@@ -23,42 +23,44 @@
   *{box-sizing:border-box}
   html,body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.55 var(--sans);-webkit-text-size-adjust:100%}
   a{color:var(--fg)}
-  header{padding:calc(20px + env(safe-area-inset-top)) 18px 10px}
-  .kicker{font:500 .68rem/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:0 0 10px}
-  h1{font-size:1.9rem;line-height:1.05;margin:0 0 12px;font-weight:600;letter-spacing:-.03em}
-  .sub{color:var(--muted);font-size:.9rem;margin:0;max-width:60ch}
+  header{padding:calc(14px + env(safe-area-inset-top)) 18px 6px}
+  .kicker{display:none;font:500 .68rem/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:0 0 10px}
+  h1{font-size:1.6rem;line-height:1.05;margin:0 0 8px;font-weight:600;letter-spacing:-.03em}
+  .sub{color:var(--muted);font-size:.8rem;margin:0;max-width:60ch;line-height:1.45}
   .sub a{text-decoration:none;border-bottom:1px solid var(--line2)}
   nav.tabs{display:flex;gap:0;padding:0 18px;position:sticky;top:0;background:var(--bg);z-index:5;overflow-x:auto;scrollbar-width:none;border-bottom:1px solid var(--line);margin-top:8px}
   nav.tabs::-webkit-scrollbar{display:none}
   .tab{flex:0 0 auto;border:0;border-bottom:2px solid transparent;background:none;color:var(--muted);padding:12px 14px 10px;font:500 .85rem var(--sans);cursor:pointer;margin-bottom:-1px}
   .tab[aria-selected="true"]{color:var(--fg);border-bottom-color:var(--fg)}
-  main{padding:14px 18px calc(48px + env(safe-area-inset-bottom))}
+  main{padding:10px 18px calc(16px + env(safe-area-inset-bottom))}
   section[hidden]{display:none}
 
-  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;font:.72rem/1 var(--mono);color:var(--muted);margin:8px 0 18px;letter-spacing:.02em}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 14px;font:.7rem/1 var(--mono);color:var(--muted);margin:6px 0 10px;letter-spacing:.02em}
   .legend span::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:7px;vertical-align:0;background:var(--c)}
-  .axis-note{font-size:.85rem;color:var(--muted);margin:0 0 10px;max-width:70ch}
+  .axis-note{font-size:.8rem;color:var(--muted);margin:0 0 6px;max-width:70ch}
+  #view-map .axis-note{display:none}
+  @media (min-width:760px){#view-map .axis-note{display:block}}
   .axis-note strong{color:var(--fg);font-weight:500}
 
-  .map{display:flex;flex-direction:column;gap:22px}
-  .row{border-top:2px solid var(--vc);padding:12px 12px 14px;margin:0 -12px;background:color-mix(in srgb,var(--vc) 6%,transparent)}
-  .row h2{font:600 .74rem/1.3 var(--mono);letter-spacing:.08em;text-transform:uppercase;margin:0 0 10px;color:var(--vc);display:flex;gap:8px;align-items:center}
+  .map{display:flex;flex-direction:column;gap:calc(14px*var(--ms,1));font-size:calc(1rem*var(--ms,1))}
+  .row{border-top:2px solid var(--vc);padding:calc(8px*var(--ms,1)) 12px calc(10px*var(--ms,1));margin:0 -12px;background:color-mix(in srgb,var(--vc) 6%,transparent)}
+  .row h2{font:600 .74em/1.3 var(--mono);letter-spacing:.08em;text-transform:uppercase;margin:0 0 .6em;color:var(--vc);display:flex;gap:8px;align-items:center}
   .row h2::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--vc);flex:0 0 auto}
-  .cells{display:grid;grid-template-columns:1fr;gap:10px}
+  .cells{display:grid;grid-template-columns:1fr;gap:.6em}
   .cell{border-left:1px solid color-mix(in srgb,var(--vc) 35%,transparent);padding:2px 0 2px 12px}
   .cell.empty{display:none}
-  .cell h3{font:500 .66rem/1 var(--mono);text-transform:uppercase;letter-spacing:.1em;color:var(--faint);margin:0 0 8px}
-  .chips{display:flex;flex-wrap:wrap;gap:6px}
-  .chip{border:1px solid var(--line2);border-left:3px solid var(--vc);background:var(--card);color:var(--fg);border-radius:var(--r);padding:7px 11px;font:500 .84rem/1.25 var(--sans);text-align:left;cursor:pointer;letter-spacing:-.005em;max-width:100%;transition:border-color .12s,background .12s}
+  .cell h3{font:500 .66em/1 var(--mono);text-transform:uppercase;letter-spacing:.1em;color:var(--faint);margin:0 0 .5em}
+  .chips{display:flex;flex-wrap:wrap;gap:.4em}
+  .chip{border:1px solid var(--line2);border-left:3px solid var(--vc);background:var(--card);color:var(--fg);border-radius:var(--r);padding:.45em .7em;font:500 .84em/1.25 var(--sans);text-align:left;cursor:pointer;letter-spacing:-.005em;max-width:100%;transition:border-color .12s,background .12s}
   .chip:hover{border-color:var(--fg)}
   .chip:active{background:var(--line)}
   @media (min-width:760px){
     .map{display:grid;grid-template-columns:130px repeat(4,1fr);gap:0 14px;row-gap:0}
     .colhead{font:500 .66rem/1.3 var(--mono);text-transform:uppercase;letter-spacing:.1em;color:var(--muted);padding:0 0 10px;align-self:end}
     .row{display:contents}
-    .row h2{align-self:start;padding:14px 0 0;border-top:2px solid var(--vc);margin:0}
+    .row h2{align-self:start;padding:.8em 0 0;border-top:2px solid var(--vc);margin:0}
     .cells{display:contents}
-    .cell{min-height:110px;border-left:0;border-top:2px solid var(--vc);padding:14px 10px 18px;background:color-mix(in srgb,var(--vc) 6%,transparent)}
+    .cell{min-height:0;border-left:0;border-top:2px solid var(--vc);padding:.8em .6em 1em;background:color-mix(in srgb,var(--vc) 6%,transparent)}
     .cell.empty{display:block;border-top:2px solid color-mix(in srgb,var(--vc) 30%,transparent);background:repeating-linear-gradient(135deg,transparent 0 6px,var(--line) 6px 7px)}
     .cell h3{display:none}
   }
@@ -101,14 +103,14 @@
   .navbtns button{flex:1;border:0;background:var(--card);color:var(--fg);padding:11px;font:500 .8rem var(--sans);cursor:pointer}
   .navbtns button:first-child{border-right:1px solid var(--line2)}
   .navbtns button:hover{background:var(--line)}
-  footer{padding:0 18px 36px;color:var(--faint);font:.72rem/1.5 var(--mono)}
+  footer{padding:0 18px 16px;color:var(--faint);font:.72rem/1.5 var(--mono)}
 </style>
 </head>
 <body>
 <header>
   <p class="kicker">Theories of consciousness × AI</p>
   <h1>Consciousness Atlas</h1>
-  <p class="sub">The theories of consciousness in Schneider, Sahner, Kuhn, Bailey &amp; Schwitzgebel (2025), <em>Is AI Conscious? A Primer on the Myths and Confusions Driving the Debate</em> (FAU white paper), mapped by what each says reality is made of and whether an AI could be conscious.</p>
+  <p class="sub">Theories of consciousness in Schneider, Sahner, Kuhn, Bailey &amp; Schwitzgebel (2025), <em>Is AI Conscious?</em> — by view of reality × verdict on AI consciousness.</p>
 </header>
 
 <nav class="tabs" role="tablist">
@@ -218,6 +220,7 @@
     ["map","tree","distinctions","about"].forEach(v=>$("#view-"+v).hidden = v!==name);
     if (push) history.replaceState(null,"","#"+name);
     window.scrollTo({top:0});
+    if (name==="map") scheduleFit();
   }
   tabs.forEach(b=>b.addEventListener("click",()=>showView(b.dataset.view)));
 
@@ -271,6 +274,20 @@
   $("#close").addEventListener("click",closeSheet);
   scrim.addEventListener("click",closeSheet);
   document.addEventListener("keydown",e=>{ if(e.key==="Escape") closeSheet(); });
+
+  // ---------- fit the map to one screen ----------
+  const mapView = $("#view-map"), footer = document.querySelector("footer");
+  function fitMap(){
+    if (mapView.hidden) return;
+    const root = document.documentElement;
+    let scale = 1; root.style.setProperty("--ms", scale);
+    const fits = () => (footer.getBoundingClientRect().bottom <= window.innerHeight + 1);
+    while (!fits() && scale > 0.62){ scale = +(scale - 0.03).toFixed(2); root.style.setProperty("--ms", scale); }
+  }
+  let rt; const scheduleFit = () => { clearTimeout(rt); rt = setTimeout(fitMap, 60); };
+  window.addEventListener("resize", scheduleFit);
+  window.addEventListener("orientationchange", scheduleFit);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitMap);
 
   // ---------- routing ----------
   function route(){
