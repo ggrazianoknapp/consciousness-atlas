@@ -5,148 +5,195 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Consciousness Atlas — theories of consciousness × AI, across six sources</title>
 <meta name="description" content="A map of the theories of consciousness discussed in Schneider et al. (2025), 'Is AI Conscious?', arranged by view of reality and by verdict on AI consciousness.">
-<meta name="color-scheme" content="light dark">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#e4f1fc">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,1..1000&family=Roboto+Serif:ital,opsz,wght@0,8..144,100..900;1,8..144,100..900&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#fafafa; --fg:#0e0e0e; --muted:#6f6f6f; --faint:#a3a3a3; --card:#ffffff; --line:#e4e4e4; --line2:#cfcfcf; --accent:#0e0e0e;
-    --v-no:#c0392b; --v-depends:#b8860b; --v-yes:#1f7a4d; --v-silent:#9a9a9a;
-    --r:4px; --sheet:#fff;
-    --sans:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace; --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
-  }
-  @media (prefers-color-scheme: dark){
-    :root{ --bg:#0c0c0c; --fg:#f0f0f0; --muted:#8f8f8f; --faint:#5c5c5c; --card:#141414; --line:#232323; --line2:#333; --accent:#f0f0f0;
-      --v-no:#e3604f; --v-depends:#d9a441; --v-yes:#4fbf85; --v-silent:#6f6f6f; --sheet:#141414; }
+    --white:#fff; --grey-50:#fafafa; --grey-100:#f4f4f5; --grey-200:#eaeaea; --grey-250:#e0e0e1; --grey-300:#d6d6d6;
+    --grey-500:#747476; --grey-600:#6d6e71; --grey-700:#57585b; --grey-850:#2f3034;
+    --blue:#bae1ff; --green:#bef2b8; --pink:#ffdeec;
+    --v-yes:var(--green); --v-depends:var(--blue); --v-no:var(--pink); --v-silent:var(--grey-250);
+    --fg:var(--grey-850); --fg2:var(--grey-600); --line:var(--grey-300);
+    --band:color-mix(in oklch,var(--blue) 40%,var(--white)); --band-line:color-mix(in oklch,var(--blue) 62%,var(--white));
+    --serif:"Roboto Serif",Georgia,serif;
+    --sans:"Google Sans Flex",-apple-system,BlinkMacSystemFont,"Helvetica Neue",sans-serif;
+    --gutter:clamp(16px,2.1vw,40px); --maxw:1200px;
+    --ease:cubic-bezier(.16,1,.3,1);
   }
   *{box-sizing:border-box}
-  html,body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.55 var(--sans);-webkit-text-size-adjust:100%}
-  a{color:var(--fg)}
-  header{padding:calc(14px + env(safe-area-inset-top)) 18px 6px}
-  .kicker{display:none;font:500 .68rem/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:0 0 10px}
-  h1{font-size:1.6rem;line-height:1.05;margin:0 0 8px;font-weight:600;letter-spacing:-.03em}
-  .sub{color:var(--muted);font-size:.8rem;margin:0;max-width:60ch;line-height:1.45}
-  .sub a{text-decoration:none;border-bottom:1px solid var(--line2)}
-  nav.tabs{display:flex;gap:0;padding:0 18px;position:sticky;top:0;background:var(--bg);z-index:5;overflow-x:auto;scrollbar-width:none;border-bottom:1px solid var(--line);margin-top:8px}
-  nav.tabs::-webkit-scrollbar{display:none}
-  .tab{flex:0 0 auto;border:0;border-bottom:2px solid transparent;background:none;color:var(--muted);padding:12px 14px 10px;font:500 .85rem var(--sans);cursor:pointer;margin-bottom:-1px}
-  .tab[aria-selected="true"]{color:var(--fg);border-bottom-color:var(--fg)}
-  main{padding:10px 18px calc(16px + env(safe-area-inset-bottom))}
-  section[hidden]{display:none}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--white);color:var(--fg);font:400 1rem/1.55 var(--serif);font-optical-sizing:auto}
+  a{color:inherit}
 
-  .legend{display:flex;flex-wrap:wrap;gap:6px 14px;font:.7rem/1 var(--mono);color:var(--muted);margin:6px 0 10px;letter-spacing:.02em}
-  .legend span::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:7px;vertical-align:0;background:var(--c)}
-  .axis-note{font-size:.8rem;color:var(--muted);margin:0 0 6px;max-width:70ch}
+  /* header + hero */
+  .top{position:sticky;top:0;z-index:10;background:var(--band);border-bottom:1px solid transparent;transition:border-color .4s}
+  .top[data-scrolled]{border-bottom-color:var(--band-line)}
+  .bar{max-width:var(--maxw);margin:0 auto;padding:env(safe-area-inset-top) var(--gutter) 0;display:flex;flex-wrap:wrap;align-items:center;column-gap:24px}
+  .brand{font:500 1.2rem/1 var(--sans);letter-spacing:-.01em;color:var(--fg);text-decoration:none;padding:18px 0}
+  .brand span{font-weight:300}
+  nav.tabs{display:flex;gap:4px;margin-left:auto;overflow-x:auto;scrollbar-width:none}
+  nav.tabs::-webkit-scrollbar{display:none}
+  .tab{flex:0 0 auto;border:0;background:none;color:var(--grey-700);padding:20px 8px;font:400 .875rem/1 var(--sans);letter-spacing:.04em;cursor:pointer;text-decoration:underline;text-decoration-color:transparent;text-decoration-thickness:1px;text-underline-offset:.45em;transition:text-decoration-color .15s}
+  .tab:hover{text-decoration-color:currentColor}
+  .tab[aria-selected="true"]{color:var(--fg);text-decoration-color:currentColor}
+  .cta{font:400 .875rem/1 var(--sans);letter-spacing:.04em;color:var(--fg);text-decoration:none;border:1px solid var(--fg);padding:.5rem .65rem;white-space:nowrap;transition:opacity .15s}
+  .cta:hover{opacity:.7}
+  @media (max-width:759px){
+    .brand{padding:16px 0 4px}
+    nav.tabs{flex-basis:100%;margin:0 -8px}
+    .tab{padding:12px 8px 14px}
+    .cta{display:none}
+  }
+  .hero{background:var(--band);border-bottom:1px solid var(--band-line)}
+  .hero .wrap{max-width:var(--maxw);margin:0 auto;padding:clamp(20px,4.5vw,64px) var(--gutter) clamp(28px,5vw,72px)}
+  .hero h1{font:400 clamp(1.6rem,3vw,3rem)/1.12 var(--serif);letter-spacing:-.01em;max-width:22ch;margin:0 0 .55em;text-wrap:balance}
+  .hero p{font:300 clamp(1rem,1.25vw,1.3rem)/1.45 var(--serif);color:var(--grey-700);max-width:56ch;margin:0}
+
+  main{max-width:var(--maxw);margin:0 auto;padding:clamp(20px,3vw,40px) var(--gutter) clamp(36px,5vw,72px)}
+  section[hidden]{display:none}
+  .axis-note{font:300 1.05rem/1.45 var(--serif);color:var(--grey-700);margin:0 0 16px;max-width:68ch}
+  .axis-note strong{color:var(--fg);font-weight:500}
   #view-map .axis-note{display:none}
   @media (min-width:760px){#view-map .axis-note{display:block}}
-  .axis-note strong{color:var(--fg);font-weight:500}
 
-  .map{display:flex;flex-direction:column;gap:calc(14px*var(--ms,1));font-size:calc(1rem*var(--ms,1))}
-  .row{border-top:2px solid var(--vc);padding:calc(8px*var(--ms,1)) 12px calc(10px*var(--ms,1));margin:0 -12px;background:color-mix(in srgb,var(--vc) 6%,transparent)}
-  .row h2{font:600 .74em/1.3 var(--mono);letter-spacing:.08em;text-transform:uppercase;margin:0 0 .6em;color:var(--vc);display:flex;gap:8px;align-items:center}
-  .row h2::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--vc);flex:0 0 auto}
-  .cells{display:grid;grid-template-columns:1fr;gap:.6em}
-  .cell{border-left:1px solid color-mix(in srgb,var(--vc) 35%,transparent);padding:2px 0 2px 12px}
+  /* map */
+  .legend{display:flex;flex-wrap:wrap;gap:8px 20px;font:400 .8rem/1 var(--sans);letter-spacing:.04em;color:var(--fg2);margin:0 0 14px}
+  .legend span::before{content:"";display:inline-block;width:10px;height:10px;margin-right:8px;vertical-align:-1px;background:var(--c);border:1px solid var(--grey-700)}
+  .srcbar{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 22px}
+  .src{border:1px solid var(--line);background:var(--white);color:var(--grey-700);padding:.5rem .7rem;font:400 .8rem/1 var(--sans);letter-spacing:.04em;cursor:pointer;transition:border-color .15s}
+  .src:hover{border-color:var(--fg)}
+  .src[aria-pressed="true"]{background:var(--fg);border-color:var(--fg);color:var(--white)}
+
+  .map{display:flex;flex-direction:column;gap:calc(12px*var(--ms,1));font-size:calc(1rem*var(--ms,1))}
+  .row{--band-v:color-mix(in oklch,var(--vc) 40%,var(--white));--line-v:color-mix(in oklch,var(--vc) 62%,var(--white));background:var(--band-v);border-block:1px solid var(--line-v);padding:1em var(--gutter) 1.1em;margin:0 calc(-1*var(--gutter))}
+  .row h2{font:400 1.15em/1.2 var(--serif);letter-spacing:-.01em;margin:0 0 .75em;display:flex;gap:10px;align-items:center}
+  .row h2::before{content:"";width:.6em;height:.6em;background:var(--vc);border:1px solid var(--grey-700);flex:0 0 auto}
+  .cells{display:grid;grid-template-columns:1fr;gap:.9em}
   .cell.empty{display:none}
-  .cell h3{font:500 .66em/1 var(--mono);text-transform:uppercase;letter-spacing:.1em;color:var(--faint);margin:0 0 .5em}
-  .chips{display:flex;flex-wrap:wrap;gap:.4em}
-  .chip{border:1px solid var(--line2);border-left:3px solid var(--vc);background:var(--card);color:var(--fg);border-radius:var(--r);padding:.45em .7em;font:500 .84em/1.25 var(--sans);text-align:left;cursor:pointer;letter-spacing:-.005em;max-width:100%;transition:border-color .12s,background .12s}
+  .cell h3{font:400 .75em/1.2 var(--sans);letter-spacing:.04em;color:var(--fg2);margin:0 0 .5em}
+  .chips{display:flex;flex-wrap:wrap;gap:.45em}
+  .chip{background:var(--white);border:1px solid var(--line);color:var(--fg);padding:.5em .75em;font:400 .92em/1.25 var(--serif);text-align:left;cursor:pointer;max-width:100%;transition:border-color .15s,opacity .2s}
   .chip:hover{border-color:var(--fg)}
-  .chip:active{background:var(--line)}
-  @media (min-width:760px){
-    .map{display:grid;grid-template-columns:130px repeat(4,1fr);gap:0 14px;row-gap:0}
-    .colhead{font:500 .66rem/1.3 var(--mono);text-transform:uppercase;letter-spacing:.1em;color:var(--muted);padding:0 0 10px;align-self:end}
-    .row{display:contents}
-    .row h2{align-self:start;padding:.8em 0 0;border-top:2px solid var(--vc);margin:0}
-    .cells{display:contents}
-    .cell{min-height:0;border-left:0;border-top:2px solid var(--vc);padding:.8em .6em 1em;background:color-mix(in srgb,var(--vc) 6%,transparent)}
-    .cell.empty{display:block;border-top:2px solid color-mix(in srgb,var(--vc) 30%,transparent);background:repeating-linear-gradient(135deg,transparent 0 6px,var(--line) 6px 7px)}
-    .cell h3{display:none}
-  }
+  .chip .n{font:300 .78em var(--sans);color:var(--fg2);margin-left:.5em}
+  .chip.dim{opacity:.3}
   .colheads{display:none}
-  @media (min-width:760px){.colheads{display:contents}}
+  @media (min-width:760px){
+    .map{display:grid;grid-template-columns:minmax(120px,.8fr) repeat(4,1fr);gap:calc(10px*var(--ms,1)) 0}
+    .colheads{display:contents}
+    .colhead{font:400 .8em/1.3 var(--sans);letter-spacing:.04em;color:var(--fg2);padding:0 .9em .4em;align-self:end}
+    .row,.cells{display:contents}
+    .row h2{margin:0;padding:.9em .9em 1em;font-size:1.05em;align-items:baseline;background:var(--band-v);border-block:1px solid var(--line-v)}
+    .row h2::before{transform:translateY(.05em)}
+    .cell{background:var(--band-v);border-block:1px solid var(--line-v);border-left:1px solid var(--line-v);padding:.9em}
+    .cell h3{display:none}
+    .cell.empty{display:block}
+    .cell.empty::after{content:"";display:block;height:100%;min-height:2.4em;border:1px dashed color-mix(in oklch,var(--vc) 45%,var(--grey-500))}
+  }
 
-  .srcbar{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 12px}
-  .src{border:1px solid var(--line2);background:var(--card);color:var(--muted);padding:5px 9px;font:500 .66rem/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;cursor:pointer;border-radius:var(--r)}
-  .src[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
-  .chip.dim{opacity:.28}
-  .chip .n{font:.62em var(--mono);color:var(--muted);margin-left:.5em;vertical-align:.1em}
-  .take{border-left:2px solid var(--line2);padding:4px 0 4px 12px;margin:0 0 12px}
-  .take h4{margin:0 0 3px;font:600 .68rem/1.2 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--fg)}
-  .take h4 small{font-weight:400;color:var(--muted);text-transform:none;letter-spacing:0;margin-left:6px}
-  .take p{font-size:.88rem}
-  .tags{display:inline-flex;gap:4px;margin:8px 0 0}
-  .tag{font:500 .6rem/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);border:1px solid var(--line2);padding:3px 6px}
-  .tree ul{list-style:none;margin:0;padding-left:16px;border-left:1px solid var(--line2)}
+  /* taxonomy */
+  .tree ul{list-style:none;margin:0;padding-left:20px;border-left:1px solid var(--line)}
   .tree>ul{padding-left:0;border:0}
-  .tree li{margin:8px 0}
-  .tree .node{font-weight:600;font-size:.95rem;padding:4px 0;letter-spacing:-.01em}
-  .tree .node small{display:block;font-weight:400;color:var(--muted);font-size:.82rem;max-width:60ch}
-  .tree .leaf{display:block;width:100%;text-align:left;background:var(--card);border:1px solid var(--line2);border-radius:var(--r);padding:8px 10px;font:500 .88rem var(--sans);color:var(--fg);cursor:pointer;position:relative;padding-left:22px}
-  .tree .leaf::before{content:"";position:absolute;left:9px;top:14px;width:6px;height:6px;border-radius:50%;background:var(--vc)}
-  .tree .leaf small{color:var(--muted);display:block;font:.7rem var(--mono);letter-spacing:.04em;margin-top:2px}
+  .tree li{margin:12px 0}
+  .tree ul:has(>li>.leaf){display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:8px}
+  .tree ul:has(>li>.leaf)>li{margin:0}
+  .tree .node{font:400 1.3rem/1.2 var(--serif);letter-spacing:-.01em;padding:6px 0 4px}
+  .tree .node small{display:block;font:300 .98rem/1.45 var(--serif);color:var(--fg2);max-width:62ch;margin-top:5px;letter-spacing:0}
+  .tree .leaf{display:flex;flex-direction:column;justify-content:flex-start;width:100%;height:100%;text-align:left;background:var(--white);border:1px solid var(--line);padding:11px 12px 11px 32px;font:400 1rem/1.3 var(--serif);color:var(--fg);cursor:pointer;position:relative;transition:border-color .15s}
+  .tree .leaf:hover{border-color:var(--fg)}
+  .tree .leaf::before{content:"";position:absolute;left:12px;top:16px;width:9px;height:9px;background:var(--vc);border:1px solid var(--grey-700)}
+  .tree .leaf small{display:block;font:300 .78rem/1.3 var(--sans);letter-spacing:.02em;color:var(--fg2);margin-top:4px}
 
-  .cards{display:grid;grid-template-columns:1fr;gap:1px;background:var(--line);border:1px solid var(--line)}
-  @media (min-width:760px){.cards{grid-template-columns:1fr 1fr}}
-  .card{background:var(--card);padding:16px 16px 18px}
-  .card h3{margin:0 0 6px;font-size:.98rem;font-weight:600;letter-spacing:-.01em}
-  .card p{margin:0;font-size:.88rem;color:var(--muted)}
+  /* distinctions */
+  .cards{display:grid;grid-template-columns:1fr;gap:16px}
+  @media (min-width:760px){.cards{grid-template-columns:1fr 1fr;gap:20px}}
+  .card{background:var(--white);border:1px solid var(--line);padding:clamp(18px,1.8vw,24px);display:flex;flex-direction:column}
+  .card h3{font:400 1.3rem/1.185 var(--serif);letter-spacing:-.01em;margin:0 0 .5em}
+  .card p{font:300 1rem/1.45 var(--serif);color:var(--fg2);margin:0 0 1.4em}
+  .tags{margin-top:auto;display:flex;flex-wrap:wrap;font:300 .8rem/1.25 var(--sans);letter-spacing:.02em;color:var(--fg2)}
+  .tag+.tag::before{content:"·";margin:0 .45em}
 
-  .about p,.about li{font-size:.9rem;max-width:70ch}
-  .about h2{font-size:.72rem;font-family:var(--mono);font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:24px 0 6px}
+  /* about */
+  .about{max-width:62ch}
+  .about h2{font:400 1.6rem/1.185 var(--serif);letter-spacing:-.01em;margin:1.6em 0 .5em}
+  .about h2:first-child{margin-top:0}
+  .about p,.about li{font:350 1.05rem/1.6 var(--serif)}
+  .about li{margin:.45em 0}
+  .about a{text-decoration-thickness:1px;text-underline-offset:.2em}
+  .about code{font:.88em ui-monospace,SFMono-Regular,Menlo,monospace;background:var(--grey-100);padding:.1em .3em}
 
-  .scrim{position:fixed;inset:0;background:rgba(0,0,0,.5);opacity:0;pointer-events:none;transition:opacity .2s;z-index:20}
+  /* theory sheet */
+  .scrim{position:fixed;inset:0;background:rgba(24,24,27,.35);opacity:0;pointer-events:none;transition:opacity .3s;z-index:20}
   .scrim.open{opacity:1;pointer-events:auto}
-  .sheet{position:fixed;left:0;right:0;bottom:0;background:var(--sheet);border-top:1px solid var(--line2);max-height:88vh;overflow:auto;transform:translateY(100%);visibility:hidden;transition:transform .25s,visibility 0s .25s;z-index:21;padding:14px 20px calc(28px + env(safe-area-inset-bottom))}
-  .sheet.open{transform:none;visibility:visible;transition:transform .25s}
-  @media (min-width:760px){.sheet{left:50%;right:auto;width:640px;border:1px solid var(--line2);border-bottom:0;transform:translate(-50%,100%)}.sheet.open{transform:translate(-50%,0)}}
-  .handle{width:36px;height:3px;background:var(--line2);margin:0 auto 16px}
-  .sheet h2{margin:0 0 10px;font-size:1.45rem;line-height:1.1;font-weight:600;letter-spacing:-.03em;padding-right:40px}
-  .badges{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 14px}
-  .badge{font:500 .68rem/1 var(--mono);letter-spacing:.05em;text-transform:uppercase;padding:6px 8px;border:1px solid var(--line2);color:var(--muted)}
-  .badge.v{color:var(--vc);border-color:var(--vc)}
-  .sheet h3{font:500 .66rem/1 var(--mono);text-transform:uppercase;letter-spacing:.1em;color:var(--faint);margin:18px 0 6px}
-  .sheet p{margin:0;font-size:.9rem;line-height:1.65}
-  .sheet ul{margin:0;padding-left:18px;font-size:.9rem}
-  .close{position:absolute;top:12px;right:14px;border:1px solid var(--line2);background:var(--card);color:var(--fg);width:32px;height:32px;border-radius:50%;font-size:18px;line-height:1;cursor:pointer}
-  .navbtns{display:flex;gap:1px;margin-top:22px;border:1px solid var(--line2)}
-  .navbtns button{flex:1;border:0;background:var(--card);color:var(--fg);padding:11px;font:500 .8rem var(--sans);cursor:pointer}
-  .navbtns button:first-child{border-right:1px solid var(--line2)}
-  .navbtns button:hover{background:var(--line)}
-  footer{padding:0 18px 16px;color:var(--faint);font:.72rem/1.5 var(--mono)}
+  .sheet{position:fixed;left:0;right:0;bottom:0;background:var(--white);border-top:1px solid var(--line);max-height:88vh;overflow:auto;transform:translateY(100%);visibility:hidden;transition:transform .4s var(--ease),visibility 0s .4s;z-index:21;padding:14px var(--gutter) calc(32px + env(safe-area-inset-bottom))}
+  .sheet.open{transform:none;visibility:visible;transition:transform .4s var(--ease)}
+  @media (min-width:760px){.sheet{left:50%;right:auto;width:min(720px,92vw);border:1px solid var(--line);border-bottom:0;padding:36px 44px 44px;transform:translate(-50%,100%)}.sheet.open{transform:translate(-50%,0)}}
+  .handle{width:36px;height:3px;background:var(--line);margin:0 auto 18px}
+  @media (min-width:760px){.handle{display:none}}
+  .sheet h2{font:400 clamp(1.5rem,2.2vw,2rem)/1.15 var(--serif);letter-spacing:-.01em;margin:0 0 14px;padding-right:48px;text-wrap:balance}
+  .badges{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 6px}
+  .badge{font:400 .78rem/1 var(--sans);letter-spacing:.04em;padding:7px 9px;border:1px solid var(--line);color:var(--grey-700)}
+  .badge.v{background:var(--vc);border-color:color-mix(in oklch,var(--vc) 60%,var(--grey-700));color:var(--fg)}
+  .sheet h3{font:400 .8rem/1.25 var(--sans);letter-spacing:.04em;color:var(--fg2);margin:26px 0 12px;padding-top:14px;border-top:1px solid var(--line)}
+  .sheet p{margin:0;font:350 1.02rem/1.6 var(--serif)}
+  .sheet ul{margin:0;padding-left:20px;font:350 1rem/1.55 var(--serif)}
+  .take{padding:12px 0}
+  .take:first-of-type{padding-top:0}
+  .take+.take{border-top:1px solid var(--grey-200)}
+  .take h4{margin:0 0 6px;font:500 .85rem/1.25 var(--sans);letter-spacing:.02em}
+  .take h4 small{font-weight:300;color:var(--fg2);margin-left:8px;letter-spacing:0}
+  .close{position:absolute;top:14px;right:14px;width:36px;height:36px;border:1px solid var(--line);background:var(--white);color:var(--fg);font:300 20px/1 var(--sans);cursor:pointer;transition:border-color .15s}
+  .close:hover{border-color:var(--fg)}
+  @media (min-width:760px){.close{top:28px;right:28px}}
+  .navbtns{display:flex;gap:8px;margin-top:30px}
+  .navbtns button{flex:1;border:1px solid var(--fg);background:var(--white);color:var(--fg);padding:12px;font:400 .875rem/1 var(--sans);letter-spacing:.04em;cursor:pointer;transition:background .15s}
+  .navbtns button:hover{background:var(--grey-100)}
+
+  footer{background:var(--grey-50);border-top:1px solid var(--line)}
+  footer .wrap{max-width:var(--maxw);margin:0 auto;padding:18px var(--gutter) calc(18px + env(safe-area-inset-bottom));display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 24px;font:400 .8rem/1.4 var(--sans);letter-spacing:.04em;color:var(--fg2)}
+  footer a{text-decoration:none}
+  footer a:hover{color:var(--fg)}
 </style>
 </head>
 <body>
-<header>
-  <p class="kicker">Theories of consciousness × AI</p>
-  <h1>Consciousness Atlas</h1>
-  <p class="sub">Theories of consciousness by view of reality × verdict on AI consciousness, drawn from six sources: the FAU primer, Saad &amp; Mogensen, Seth, Butlin et al., the CDM glossary and Schiavo.</p>
+<header class="top">
+  <div class="bar">
+    <a class="brand" href="#map">Consciousness <span>Atlas</span></a>
+    <nav class="tabs" role="tablist">
+      <button class="tab" role="tab" data-view="map" aria-selected="true">Map</button>
+      <button class="tab" role="tab" data-view="tree">Taxonomy</button>
+      <button class="tab" role="tab" data-view="distinctions">Distinctions</button>
+      <button class="tab" role="tab" data-view="about">About</button>
+    </nav>
+    <a class="cta" href="https://github.com/ggrazianoknapp/consciousness-atlas" rel="noopener">GitHub</a>
+  </div>
 </header>
 
-<nav class="tabs" role="tablist">
-  <button class="tab" role="tab" data-view="map" aria-selected="true">Map</button>
-  <button class="tab" role="tab" data-view="tree">Taxonomy</button>
-  <button class="tab" role="tab" data-view="distinctions">Distinctions</button>
-  <button class="tab" role="tab" data-view="about">About</button>
-</nav>
+<section class="hero">
+  <div class="wrap">
+    <h1>Theories of consciousness, and what each one says about AI</h1>
+    <p>Each theory is placed by what it takes reality to be made of and by whether it allows a conscious AI. The summaries come from six sources: the FAU primer, Saad &amp; Mogensen, Seth, Butlin et al., the Cambridge Digital Minds glossary and Schiavo.</p>
+  </div>
+</section>
 
 <main>
   <section id="view-map">
     <p class="axis-note"><strong>Rows:</strong> the theory's verdict on AI consciousness, as the paper reports it. <strong>Columns:</strong> the theory's view of reality. Tap a theory for details.</p>
     <div class="legend" id="legend"></div>
     <div class="srcbar" id="srcbar"></div>
-    <div class="map" id="map"></div>
+    <div class="map" id="map-grid"></div>
   </section>
 
   <section id="view-tree" hidden>
     <p class="axis-note">The FAU primer's ordering — monism vs dualism, physicalist vs non-physicalist — extended with the theories the other sources add. Mechanism-level theories and cross-cutting hypotheses are grouped separately.</p>
-    <div class="tree" id="tree"></div>
+    <div class="tree" id="tree-list"></div>
   </section>
 
   <section id="view-distinctions" hidden>
     <p class="axis-note">The distinctions, methods and traps the sources use to keep the debate honest. Tags show which sources discuss each.</p>
-    <div class="cards" id="distinctions"></div>
+    <div class="cards" id="distinction-cards"></div>
   </section>
 
   <section id="view-about" hidden class="about">
@@ -168,7 +215,12 @@
   </section>
 </main>
 
-<footer>Paraphrased from six sources; not endorsed by their authors. Corrections welcome via GitHub issues.</footer>
+<footer>
+  <div class="wrap">
+    <span>Paraphrased from six sources and not endorsed by their authors.</span>
+    <a href="https://github.com/ggrazianoknapp/consciousness-atlas/issues" rel="noopener">Suggest a correction on GitHub</a>
+  </div>
+</footer>
 
 <div class="scrim" id="scrim"></div>
 <div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-title">
@@ -191,7 +243,7 @@
   $("#legend").innerHTML = VERDICT_ORDER.map(k=>`<span style="--c:${VERDICT[k].color}">${VERDICT[k].short}</span>`).join("");
 
   // ---------- map ----------
-  const map = $("#map");
+  const map = $("#map-grid");
   let html = `<div class="colheads"><div></div>${REALITY_ORDER.map(r=>`<div class="colhead">${REALITY[r].label}</div>`).join("")}</div>`;
   for (const v of VERDICT_ORDER){
     html += `<div class="row" style="--vc:${VERDICT[v].color}"><h2>${VERDICT[v].label}</h2><div class="cells">`;
@@ -219,7 +271,7 @@
 
   // ---------- tree ----------
   function leaf(t){ return `<li><button class="leaf" data-id="${t.id}" style="--vc:${VERDICT[t.verdict].color}">${t.name}<small>AI: ${VERDICT[t.verdict].short}</small></button></li>`; }
-  const tree = $("#tree");
+  const tree = $("#tree-list");
   tree.innerHTML = `
   <ul>
     <li><div class="node">Monism<small>All reality consists of exactly one kind of fundamental ingredient.</small></div>
@@ -236,8 +288,14 @@
   </ul>`;
 
   // ---------- distinctions ----------
-  $("#distinctions").innerHTML = DISTINCTIONS.map(d=>`<article class="card"><h3>${d.title}</h3><p>${d.body}</p><div class="tags">${d.src.map(k=>`<span class="tag">${SOURCES[k].short}</span>`).join("")}</div></article>`).join("");
+  $("#distinction-cards").innerHTML = DISTINCTIONS.map(d=>`<article class="card"><h3>${d.title}</h3><p>${d.body}</p><div class="tags">${d.src.map(k=>`<span class="tag">${SOURCES[k].short}</span>`).join("")}</div></article>`).join("");
   $("#srclist").innerHTML = SOURCE_ORDER.map(k=>{const S=SOURCES[k]; return `<li><strong>${S.short}</strong> — ${S.label}, <em>${S.url?`<a href="${S.url}" rel="noopener" target="_blank">${S.title}</a>`:S.title}</em>. ${S.kind}</li>`;}).join("");
+
+  // ---------- header border once the hero has scrolled away ----------
+  const topbar = $(".top"), hero = $(".hero");
+  const onScroll = () => topbar.toggleAttribute("data-scrolled", window.scrollY > hero.offsetHeight - 1);
+  window.addEventListener("scroll", onScroll, {passive:true});
+  onScroll();
 
   // ---------- tabs ----------
   const tabs = [...document.querySelectorAll(".tab")];
@@ -245,7 +303,8 @@
     tabs.forEach(b=>b.setAttribute("aria-selected", b.dataset.view===name));
     ["map","tree","distinctions","about"].forEach(v=>$("#view-"+v).hidden = v!==name);
     if (push) history.replaceState(null,"","#"+name);
-    window.scrollTo({top:0});
+    // stay below the hero if the reader has already scrolled past it
+    window.scrollTo({top: Math.min(window.scrollY, Math.max(0, $("main").offsetTop - topbar.offsetHeight))});
     if (name==="map") scheduleFit();
   }
   tabs.forEach(b=>b.addEventListener("click",()=>showView(b.dataset.view)));
@@ -300,13 +359,14 @@
   scrim.addEventListener("click",closeSheet);
   document.addEventListener("keydown",e=>{ if(e.key==="Escape") closeSheet(); });
 
-  // ---------- fit the map to one screen ----------
-  const mapView = $("#view-map"), footer = document.querySelector("footer");
+  // ---------- fit the map to one screen (below the sticky header) ----------
+  const mapView = $("#view-map");
   function fitMap(){
     if (mapView.hidden) return;
     const root = document.documentElement;
     let scale = 1; root.style.setProperty("--ms", scale);
-    const fits = () => (footer.getBoundingClientRect().bottom <= window.innerHeight + 1);
+    const avail = window.innerHeight - topbar.offsetHeight - (mapView.offsetTop - $("main").offsetTop) - 16;
+    const fits = () => mapView.offsetHeight <= avail;
     while (!fits() && scale > 0.62){ scale = +(scale - 0.03).toFixed(2); root.style.setProperty("--ms", scale); }
   }
   let rt; const scheduleFit = () => { clearTimeout(rt); rt = setTimeout(fitMap, 60); };
